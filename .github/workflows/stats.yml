@@ -2,8 +2,8 @@ name: stats
 
 on:
   schedule:
-    - cron: "17 3 * * *"   # chaque nuit à 03h17 UTC
-  workflow_dispatch:        # + bouton "Run workflow" pour lancer à la main
+    - cron: "17 3 * * *"
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -18,15 +18,11 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Régénérer la carte de stats
-        env:
-          # STATS_TOKEN (PAT classic, scope read:user) compte aussi les contributions privées ;
-          # sans lui, on retombe sur le token du repo (public uniquement).
+      - env:
           GH_TOKEN: ${{ secrets.STATS_TOKEN || github.token }}
         run: python scripts/render_stats.py
 
-      - name: Commit si la carte a changé
-        run: |
+      - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add assets/stats.svg

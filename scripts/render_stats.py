@@ -1,7 +1,3 @@
-# Generates assets/stats.svg, the hand-drawn stats card, refreshed nightly by the Action.
-# Usage: GH_TOKEN=xxx py scripts/render_stats.py [--demo]
-#   --demo: render the card with fake data (to test the layout without a token)
-
 import json
 import os
 import sys
@@ -12,7 +8,7 @@ from pathlib import Path
 LOGIN = "wSocrate"
 OUT = Path(__file__).resolve().parent.parent / "assets" / "stats.svg"
 
-W, H = 880, 260
+W, H = 880, 250
 
 C = {
     "bg0": "#0d1b2a",
@@ -63,7 +59,6 @@ def fetch():
 
 
 def demo_data():
-    # about a year of fake contributions, deterministic pattern
     days = []
     d = date.today().toordinal() - 364
     for i in range(365):
@@ -87,7 +82,6 @@ def streaks(days):
     for d in days:
         run = run + 1 if d["contributionCount"] > 0 else 0
         best = max(best, run)
-    # current streak: walk back from the end (today may still be empty)
     tail = list(reversed(days))
     if tail and tail[0]["contributionCount"] == 0:
         tail = tail[1:]
@@ -127,7 +121,6 @@ def render(user):
     p.append(f"""<style>
       .num {{ font: 700 30px ui-monospace, 'Cascadia Code', Consolas, monospace; }}
       .lbl {{ font: 500 12px ui-monospace, 'Cascadia Code', Consolas, monospace; }}
-      .ft  {{ font: 500 11px ui-monospace, 'Cascadia Code', Consolas, monospace; }}
       .cell {{ animation: pop .5s ease-out backwards; }}
       @keyframes pop {{ from {{ opacity: 0 }} to {{ opacity: 1 }} }}
     </style>""")
@@ -148,7 +141,6 @@ def render(user):
         p.append(f'<text x="{x}" y="62" class="num" fill="{C["text"]}">{num}</text>')
         p.append(f'<text x="{x}" y="84" class="lbl" fill="{C["muted"]}">{lbl}</text>')
 
-    # heatmap
     hx, hy = 64, 112
     cell, gap = 11, 3
     for wi, w in enumerate(weeks):
@@ -161,10 +153,6 @@ def render(user):
                 f'class="cell" style="animation-delay:{delay:.3f}s"/>'
             )
 
-    stamp = datetime.now(timezone.utc).strftime("%b %d, %Y")
-    p.append(f'<text x="{W-64}" y="{H-20}" text-anchor="end" class="ft" fill="{C["muted"]}">refreshed {stamp} by scripts/render_stats.py</text>')
-    p.append(f'<rect x="64" y="{H-30}" width="8" height="8" rx="2" fill="{C["accent"]}"/>')
-    p.append(f'<text x="78" y="{H-22}" class="ft" fill="{C["muted"]}">one year of contributions</text>')
     p.append("</svg>")
 
     OUT.parent.mkdir(parents=True, exist_ok=True)

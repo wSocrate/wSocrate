@@ -11,4 +11,4 @@ Everything on this profile, the banner above and the stats card below, is drawn 
 
 <img src="assets/stats.svg" alt="My GitHub stats, refreshed nightly" width="100%">
 
-<sub>🌴 [walyverse.fr](https://walyverse.fr) · 🐦 [@Seiiki_](https://x.com/Seiiki_)</sub>
+<sub>🌴 [walyverse.fr](https://walyverse.fr) · 🐦 [@Seiiiki_](https://x.com/Seiiiki_) · 💬 @seiiki_ on Discord</sub>
