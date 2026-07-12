@@ -20,7 +20,10 @@ jobs:
 
       - env:
           GH_TOKEN: ${{ secrets.STATS_TOKEN || github.token }}
-        run: python scripts/render_stats.py
+          HAS_PAT: ${{ secrets.STATS_TOKEN != '' }}
+        run: |
+          echo "personal token found: $HAS_PAT"
+          python scripts/render_stats.py
 
       - run: |
           git config user.name "github-actions[bot]"

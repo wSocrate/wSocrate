@@ -106,7 +106,7 @@ def render(user):
     cal = user["contributionsCollection"]["contributionCalendar"]
     weeks = cal["weeks"]
     days = [d for w in weeks for d in w["contributionDays"]]
-    total = cal["totalContributions"]
+    total = cal["totalContributions"] + user["contributionsCollection"]["restrictedContributionsCount"]
     repos = user["repositoriesContributedTo"]["totalCount"]
     cur, best = streaks(days)
 
