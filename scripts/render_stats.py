@@ -1,4 +1,5 @@
 import json
+import math
 import os
 import re
 import sys
@@ -141,7 +142,8 @@ def render(user, views=None):
         p.append(f'<text x="{x}" y="62" class="num" fill="{C["text"]}">{num}</text>')
         p.append(f'<text x="{x}" y="84" class="lbl" fill="{C["muted"]}">{lbl}</text>')
 
-    weekly = [sum(d["contributionCount"] for d in w["contributionDays"]) for w in weeks]
+    window = 16
+    weekly = [sum(d["contributionCount"] for d in w["contributionDays"]) for w in weeks][-window:]
     top = max(weekly) if any(weekly) else 1
     nonzero = sorted(v for v in weekly if v > 0)
     if nonzero:
@@ -151,21 +153,24 @@ def render(user, views=None):
 
     peak = max(range(len(weekly)), key=lambda i: (weekly[i], i)) if any(weekly) else -1
     hx, base = 64, 206
-    bw, gap = 10, 4
+    n = len(weekly)
+    gap = 6
+    bw = (752 - (n - 1) * gap) // n
     for wi, v in enumerate(weekly):
         if v == 0:
             bh, fill = 3, C["empty"]
         elif wi == peak:
             bh, fill = 92, C["accent"]
         else:
-            bh = max(6, round(v / top * 92))
+            bh = max(6, round(math.sqrt(v / top) * 92))
             fill = C["levels"][min(3, next(i for i, q in enumerate(qq) if v <= q))]
         p.append(
-            f'<rect x="{hx + wi * (bw + gap)}" y="{base - bh}" width="{bw}" height="{bh}" rx="2" '
-            f'fill="{fill}" class="cell" style="animation-delay:{wi * 0.015:.3f}s"/>'
+            f'<rect x="{hx + wi * (bw + gap)}" y="{base - bh}" width="{bw}" height="{bh}" rx="3" '
+            f'fill="{fill}" class="cell" style="animation-delay:{wi * 0.03:.3f}s"/>'
         )
-    p.append(f'<rect x="{hx}" y="{base + 4}" width="{len(weekly) * (bw + gap) - gap}" height="2" fill="{C["border"]}" opacity=".7"/>')
+    p.append(f'<rect x="{hx}" y="{base + 4}" width="{n * (bw + gap) - gap}" height="2" fill="{C["border"]}" opacity=".7"/>')
 
+    p.append(f'<text x="{hx}" y="{H - 16}" class="lbl" fill="{C["muted"]}">last 4 months, week by week</text>')
     if views:
         p.append(f'<text x="{W - 64}" y="{H - 16}" text-anchor="end" class="lbl" fill="{C["muted"]}">{views:,} profile views</text>')
 
