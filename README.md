@@ -9,4 +9,4 @@ I'm building **[Walyverse](https://walyverse.fr)**, a French Minecraft universe,
 
 <img src="assets/stats.svg" alt="My GitHub stats, refreshed nightly" width="100%">
 
-<sub>🌴 [walyverse.fr](https://walyverse.fr)&ensp;&ensp;🐦 [@Seiiiki_](https://x.com/Seiiiki_)&ensp;&ensp;💬 @seiiki_ on Discord</sub>
+<sub>🌴 [walyverse.fr](https://walyverse.fr)&ensp;&ensp;🐦 [@Seiiiki_](https://x.com/Seiiiki_)&ensp;&ensp;💬 @seiiki_ on Discord</sub>&ensp;&ensp;<img src="https://komarev.com/ghpvc/?username=wSocrate&label=views&color=ff8f6b&style=flat-square" alt="profile views" height="16">
