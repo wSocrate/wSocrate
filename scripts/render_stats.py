@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import sys
 import urllib.request
 from datetime import date, datetime, timezone
@@ -58,6 +59,20 @@ def fetch():
     return payload["data"]["user"]
 
 
+def profile_views():
+    try:
+        req = urllib.request.Request(
+            f"https://komarev.com/ghpvc/?username={LOGIN}",
+            headers={"User-Agent": "Mozilla/5.0"},
+        )
+        with urllib.request.urlopen(req, timeout=10) as r:
+            svg = r.read().decode()
+        nums = re.findall(r">([\d,]+)<", svg)
+        return int(nums[-1].replace(",", "")) if nums else None
+    except OSError:
+        return None
+
+
 def demo_data():
     days = []
     d = date.today().toordinal() - 364
@@ -93,7 +108,7 @@ def streaks(days):
     return cur, best
 
 
-def render(user):
+def render(user, views=None):
     cal = user["contributionsCollection"]["contributionCalendar"]
     weeks = cal["weeks"]
     days = [d for w in weeks for d in w["contributionDays"]]
@@ -134,12 +149,13 @@ def render(user):
     else:
         qq = [1, 2, 3, 4]
 
+    peak = max(range(len(weekly)), key=lambda i: (weekly[i], i)) if any(weekly) else -1
     hx, base = 64, 206
     bw, gap = 10, 4
     for wi, v in enumerate(weekly):
         if v == 0:
             bh, fill = 3, C["empty"]
-        elif v == top:
+        elif wi == peak:
             bh, fill = 92, C["accent"]
         else:
             bh = max(6, round(v / top * 92))
@@ -150,6 +166,9 @@ def render(user):
         )
     p.append(f'<rect x="{hx}" y="{base + 4}" width="{len(weekly) * (bw + gap) - gap}" height="2" fill="{C["border"]}" opacity=".7"/>')
 
+    if views:
+        p.append(f'<text x="{W - 64}" y="{H - 16}" text-anchor="end" class="lbl" fill="{C["muted"]}">{views:,} profile views</text>')
+
     p.append("</svg>")
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
@@ -158,4 +177,7 @@ def render(user):
 
 
 if __name__ == "__main__":
-    render(demo_data() if "--demo" in sys.argv else fetch())
+    if "--demo" in sys.argv:
+        render(demo_data(), views=1024)
+    else:
+        render(fetch(), views=profile_views())
