@@ -10,7 +10,7 @@
     </linearGradient></defs>
 <rect width="880" height="250" rx="12" fill="url(#bg)"/>
 <rect x="0.5" y="0.5" width="879" height="249" rx="12" fill="none" stroke="#24435c"/>
-<text x="64" y="62" class="num" fill="#f2ede3">1,291</text>
+<text x="64" y="62" class="num" fill="#f2ede3">1,292</text>
 <text x="64" y="84" class="lbl" fill="#8ea8ba">contributions this year</text>
 <text x="259" y="62" class="num" fill="#f2ede3">7</text>
 <text x="259" y="84" class="lbl" fill="#8ea8ba">current daily streak</text>
@@ -18,59 +18,23 @@
 <text x="454" y="84" class="lbl" fill="#8ea8ba">best daily streak</text>
 <text x="649" y="62" class="num" fill="#f2ede3">4</text>
 <text x="649" y="84" class="lbl" fill="#8ea8ba">repos contributed to</text>
-<rect x="64" y="184" width="10" height="22" rx="2" fill="#16b89a" class="cell" style="animation-delay:0.000s"/>
-<rect x="78" y="200" width="10" height="6" rx="2" fill="#0f5257" class="cell" style="animation-delay:0.015s"/>
-<rect x="92" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.030s"/>
-<rect x="106" y="190" width="10" height="16" rx="2" fill="#0e7c6b" class="cell" style="animation-delay:0.045s"/>
-<rect x="120" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.060s"/>
-<rect x="134" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.075s"/>
-<rect x="148" y="200" width="10" height="6" rx="2" fill="#0f5257" class="cell" style="animation-delay:0.090s"/>
-<rect x="162" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.105s"/>
-<rect x="176" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.120s"/>
-<rect x="190" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.135s"/>
-<rect x="204" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.150s"/>
-<rect x="218" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.165s"/>
-<rect x="232" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.180s"/>
-<rect x="246" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.195s"/>
-<rect x="260" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.210s"/>
-<rect x="274" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.225s"/>
-<rect x="288" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.240s"/>
-<rect x="302" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.255s"/>
-<rect x="316" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.270s"/>
-<rect x="330" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.285s"/>
-<rect x="344" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.300s"/>
-<rect x="358" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.315s"/>
-<rect x="372" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.330s"/>
-<rect x="386" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.345s"/>
-<rect x="400" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.360s"/>
-<rect x="414" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.375s"/>
-<rect x="428" y="200" width="10" height="6" rx="2" fill="#0f5257" class="cell" style="animation-delay:0.390s"/>
-<rect x="442" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.405s"/>
-<rect x="456" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.420s"/>
-<rect x="470" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.435s"/>
-<rect x="484" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.450s"/>
-<rect x="498" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.465s"/>
-<rect x="512" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.480s"/>
-<rect x="526" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.495s"/>
-<rect x="540" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.510s"/>
-<rect x="554" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.525s"/>
-<rect x="568" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.540s"/>
-<rect x="582" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.555s"/>
-<rect x="596" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.570s"/>
-<rect x="610" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.585s"/>
-<rect x="624" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.600s"/>
-<rect x="638" y="203" width="10" height="3" rx="2" fill="#142c3d" class="cell" style="animation-delay:0.615s"/>
-<rect x="652" y="128" width="10" height="78" rx="2" fill="#7ce3c3" class="cell" style="animation-delay:0.630s"/>
-<rect x="666" y="185" width="10" height="21" rx="2" fill="#0e7c6b" class="cell" style="animation-delay:0.645s"/>
-<rect x="680" y="177" width="10" height="29" rx="2" fill="#16b89a" class="cell" style="animation-delay:0.660s"/>
-<rect x="694" y="163" width="10" height="43" rx="2" fill="#16b89a" class="cell" style="animation-delay:0.675s"/>
-<rect x="708" y="166" width="10" height="40" rx="2" fill="#16b89a" class="cell" style="animation-delay:0.690s"/>
-<rect x="722" y="200" width="10" height="6" rx="2" fill="#0f5257" class="cell" style="animation-delay:0.705s"/>
-<rect x="736" y="114" width="10" height="92" rx="2" fill="#ff8f6b" class="cell" style="animation-delay:0.720s"/>
-<rect x="750" y="199" width="10" height="7" rx="2" fill="#0e7c6b" class="cell" style="animation-delay:0.735s"/>
-<rect x="764" y="193" width="10" height="13" rx="2" fill="#0e7c6b" class="cell" style="animation-delay:0.750s"/>
-<rect x="778" y="158" width="10" height="48" rx="2" fill="#7ce3c3" class="cell" style="animation-delay:0.765s"/>
-<rect x="792" y="200" width="10" height="6" rx="2" fill="#0f5257" class="cell" style="animation-delay:0.780s"/>
-<rect x="64" y="210" width="738" height="2" fill="#24435c" opacity=".7"/>
-<text x="816" y="234" text-anchor="end" class="lbl" fill="#8ea8ba">33 profile views</text>
+<rect x="64" y="203" width="41" height="3" rx="3" fill="#142c3d" class="cell" style="animation-delay:0.000s"/>
+<rect x="111" y="203" width="41" height="3" rx="3" fill="#142c3d" class="cell" style="animation-delay:0.030s"/>
+<rect x="158" y="203" width="41" height="3" rx="3" fill="#142c3d" class="cell" style="animation-delay:0.060s"/>
+<rect x="205" y="203" width="41" height="3" rx="3" fill="#142c3d" class="cell" style="animation-delay:0.090s"/>
+<rect x="252" y="203" width="41" height="3" rx="3" fill="#142c3d" class="cell" style="animation-delay:0.120s"/>
+<rect x="299" y="121" width="41" height="85" rx="3" fill="#7ce3c3" class="cell" style="animation-delay:0.150s"/>
+<rect x="346" y="162" width="41" height="44" rx="3" fill="#0e7c6b" class="cell" style="animation-delay:0.180s"/>
+<rect x="393" y="154" width="41" height="52" rx="3" fill="#0e7c6b" class="cell" style="animation-delay:0.210s"/>
+<rect x="440" y="143" width="41" height="63" rx="3" fill="#16b89a" class="cell" style="animation-delay:0.240s"/>
+<rect x="487" y="145" width="41" height="61" rx="3" fill="#16b89a" class="cell" style="animation-delay:0.270s"/>
+<rect x="534" y="190" width="41" height="16" rx="3" fill="#0f5257" class="cell" style="animation-delay:0.300s"/>
+<rect x="581" y="114" width="41" height="92" rx="3" fill="#ff8f6b" class="cell" style="animation-delay:0.330s"/>
+<rect x="628" y="181" width="41" height="25" rx="3" fill="#0f5257" class="cell" style="animation-delay:0.360s"/>
+<rect x="675" y="171" width="41" height="35" rx="3" fill="#0e7c6b" class="cell" style="animation-delay:0.390s"/>
+<rect x="722" y="139" width="41" height="67" rx="3" fill="#16b89a" class="cell" style="animation-delay:0.420s"/>
+<rect x="769" y="182" width="41" height="24" rx="3" fill="#0f5257" class="cell" style="animation-delay:0.450s"/>
+<rect x="64" y="210" width="746" height="2" fill="#24435c" opacity=".7"/>
+<text x="64" y="234" class="lbl" fill="#8ea8ba">last 4 months, week by week</text>
+<text x="816" y="234" text-anchor="end" class="lbl" fill="#8ea8ba">41 profile views</text>
 </svg>
