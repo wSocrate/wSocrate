@@ -93,15 +93,6 @@ def streaks(days):
     return cur, best
 
 
-def level(count, quartiles):
-    if count == 0:
-        return None
-    for i, q in enumerate(quartiles):
-        if count <= q:
-            return C["levels"][i]
-    return C["levels"][-1]
-
-
 def render(user):
     cal = user["contributionsCollection"]["contributionCalendar"]
     weeks = cal["weeks"]
@@ -109,12 +100,6 @@ def render(user):
     total = cal["totalContributions"] + user["contributionsCollection"]["restrictedContributionsCount"]
     repos = user["repositoriesContributedTo"]["totalCount"]
     cur, best = streaks(days)
-
-    counts = sorted(c["contributionCount"] for c in days if c["contributionCount"] > 0)
-    if counts:
-        quart = [counts[min(len(counts) - 1, len(counts) * (i + 1) // 4)] for i in range(4)]
-    else:
-        quart = [1, 2, 3, 4]
 
     p = []
     p.append(f'<svg width="{W}" height="{H}" viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GitHub stats for {LOGIN}">')
@@ -141,17 +126,29 @@ def render(user):
         p.append(f'<text x="{x}" y="62" class="num" fill="{C["text"]}">{num}</text>')
         p.append(f'<text x="{x}" y="84" class="lbl" fill="{C["muted"]}">{lbl}</text>')
 
-    hx, hy = 64, 112
-    cell, gap = 11, 3
-    for wi, w in enumerate(weeks):
-        for di, d in enumerate(w["contributionDays"]):
-            fill = level(d["contributionCount"], quart) or C["empty"]
-            delay = wi * 0.012
-            p.append(
-                f'<rect x="{hx + wi * (cell + gap)}" y="{hy + di * (cell + gap)}" '
-                f'width="{cell}" height="{cell}" rx="2.5" fill="{fill}" '
-                f'class="cell" style="animation-delay:{delay:.3f}s"/>'
-            )
+    weekly = [sum(d["contributionCount"] for d in w["contributionDays"]) for w in weeks]
+    top = max(weekly) if any(weekly) else 1
+    nonzero = sorted(v for v in weekly if v > 0)
+    if nonzero:
+        qq = [nonzero[min(len(nonzero) - 1, len(nonzero) * (i + 1) // 4)] for i in range(4)]
+    else:
+        qq = [1, 2, 3, 4]
+
+    hx, base = 64, 206
+    bw, gap = 10, 4
+    for wi, v in enumerate(weekly):
+        if v == 0:
+            bh, fill = 3, C["empty"]
+        elif v == top:
+            bh, fill = 92, C["accent"]
+        else:
+            bh = max(6, round(v / top * 92))
+            fill = C["levels"][min(3, next(i for i, q in enumerate(qq) if v <= q))]
+        p.append(
+            f'<rect x="{hx + wi * (bw + gap)}" y="{base - bh}" width="{bw}" height="{bh}" rx="2" '
+            f'fill="{fill}" class="cell" style="animation-delay:{wi * 0.015:.3f}s"/>'
+        )
+    p.append(f'<rect x="{hx}" y="{base + 4}" width="{len(weekly) * (bw + gap) - gap}" height="2" fill="{C["border"]}" opacity=".7"/>')
 
     p.append("</svg>")
 
