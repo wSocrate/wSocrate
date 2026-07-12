@@ -10,7 +10,7 @@
     </linearGradient></defs>
 <rect width="880" height="250" rx="12" fill="url(#bg)"/>
 <rect x="0.5" y="0.5" width="879" height="249" rx="12" fill="none" stroke="#24435c"/>
-<text x="64" y="62" class="num" fill="#f2ede3">1,289</text>
+<text x="64" y="62" class="num" fill="#f2ede3">1,291</text>
 <text x="64" y="84" class="lbl" fill="#8ea8ba">contributions this year</text>
 <text x="259" y="62" class="num" fill="#f2ede3">7</text>
 <text x="259" y="84" class="lbl" fill="#8ea8ba">current daily streak</text>
@@ -72,4 +72,5 @@
 <rect x="778" y="158" width="10" height="48" rx="2" fill="#7ce3c3" class="cell" style="animation-delay:0.765s"/>
 <rect x="792" y="200" width="10" height="6" rx="2" fill="#0f5257" class="cell" style="animation-delay:0.780s"/>
 <rect x="64" y="210" width="738" height="2" fill="#24435c" opacity=".7"/>
+<text x="816" y="234" text-anchor="end" class="lbl" fill="#8ea8ba">33 profile views</text>
 </svg>
