@@ -10,7 +10,7 @@
     </linearGradient></defs>
 <rect width="880" height="250" rx="12" fill="url(#bg)"/>
 <rect x="0.5" y="0.5" width="879" height="249" rx="12" fill="none" stroke="#24435c"/>
-<text x="64" y="62" class="num" fill="#f2ede3">1,327</text>
+<text x="64" y="62" class="num" fill="#f2ede3">1,329</text>
 <text x="64" y="84" class="lbl" fill="#8ea8ba">contributions this year</text>
 <text x="259" y="62" class="num" fill="#f2ede3">9</text>
 <text x="259" y="84" class="lbl" fill="#8ea8ba">current daily streak</text>
