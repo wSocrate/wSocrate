@@ -10,66 +10,64 @@ from pathlib import Path
 LOGIN = "wSocrate"
 OUT = Path(__file__).resolve().parent.parent / "assets" / "profile.svg"
 
-W, H = 880, 600
+W, H = 880, 672
 PAD = 56
 INNER = W - PAD * 2
 
 C = {
-    "bg0": "#0b1018",
-    "bg1": "#141d2a",
-    "grid": "#ffffff",
-    "rule": "#1e2733",
-    "link": "#3f7ba8",
-    "node": "#9fd8cd",
-    "halo": "#58c2b0",
-    "text": "#f4f6fa",
-    "muted": "#aeb9c9",
-    "faint": "#6b7684",
-    "gold": "#f2c14e",
-    "empty": "#18202c",
-    "levels": ["#12525a", "#12796c", "#17b89a", "#7ce3c3"],
+    "ink0": "#070b14",
+    "ink1": "#0e1524",
+    "panel": "#0b111d",
+    "rule": "#1a2334",
+    "rule_soft": "#141c2a",
+    "fg": "#f4f7fb",
+    "fg2": "#c9d5e4",
+    "fg3": "#97a6bc",
+    "fg4": "#5c6a80",
+    "accent": "#f2c14e",
+    "empty": "#161e2c",
+    "ramp": ["#3d3018", "#7d5c1f", "#bb8d2c", "#f2c14e"],
 }
 
-MONO = "ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, monospace"
+MONO = "ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace"
 
-FONT = {
-    "S": [".####", "#....", "#....", ".###.", "....#", "....#", "####."],
-    "O": [".###.", "#...#", "#...#", "#...#", "#...#", "#...#", ".###."],
-    "C": [".###.", "#...#", "#....", "#....", "#....", "#...#", ".###."],
-    "R": ["####.", "#...#", "#...#", "####.", "#.#..", "#..#.", "#...#"],
-    "A": [".###.", "#...#", "#...#", "#####", "#...#", "#...#", "#...#"],
-    "T": ["#####", "..#..", "..#..", "..#..", "..#..", "..#..", "..#.."],
-    "E": ["#####", "#....", "#....", "####.", "#....", "#....", "#####"],
+# geometric display face: normalised polylines, stroked with round caps and joins
+GLYPHS = {
+    "S": [[(1, 0), (0, 0), (0, .5), (1, .5), (1, 1), (0, 1)]],
+    "O": [[(0, 0), (1, 0), (1, 1), (0, 1), (0, 0)]],
+    "C": [[(1, 0), (0, 0), (0, 1), (1, 1)]],
+    "R": [[(0, 1), (0, 0), (.94, 0), (.94, .5), (0, .5)], [(.44, .5), (1, 1)]],
+    "A": [[(0, 1), (.5, 0), (1, 1)], [(.17, .66), (.83, .66)]],
+    "T": [[(0, 0), (1, 0)], [(.5, 0), (.5, 1)]],
+    "E": [[(1, 0), (0, 0), (0, 1), (1, 1)], [(0, .5), (.78, .5)]],
 }
+GW, GH, TRACK = 44.0, 62.0, 18.0
+STROKE = 9.0
 
 NODES = [
-    (128, 52), (196, 118), (150, 176), (268, 74), (316, 146), (352, 50),
-    (404, 108), (438, 172), (486, 62), (520, 108), (566, 94), (588, 166),
-    (624, 42), (652, 122), (712, 80), (724, 160), (782, 114), (796, 48),
-    (838, 158), (846, 86),
+    (588, 96), (646, 62), (628, 152), (700, 108), (688, 196), (744, 66),
+    (762, 148), (800, 100), (818, 198), (836, 58),
 ]
-HUBS = {10, 15, 17}
-LINK_RANGE = 96
+HUBS = {3, 7}
+LINK_RANGE = 84
 
-LINES = [
-    ("The gameplay", "the plugins and systems players actually play with"),
-    ("The network", "a whole fleet of servers, kept in sync and live for real players"),
-    ("The infrastructure", "Ferry, my own deployment platform"),
-    ("The web", "the dashboards, the site, the store"),
+MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
+          "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+
+SECTIONS = [
+    ("01", "GAMEPLAY", "plugins &amp; systems"),
+    ("02", "NETWORK", "a fleet of servers"),
+    ("03", "INFRASTRUCTURE", "Ferry, deployment"),
+    ("04", "WEB", "dashboards &amp; store"),
 ]
 
 QUERY = """
 query($login: String!) {
   user(login: $login) {
-    repositoriesContributedTo(
-      includeUserRepositories: true
-      contributionTypes: [COMMIT, PULL_REQUEST, ISSUE, REPOSITORY]
-      first: 1
-    ) { totalCount }
     contributionsCollection {
       contributionCalendar {
         totalContributions
-        weeks { contributionDays { date contributionCount } }
+        weeks { contributionDays { date contributionCount weekday } }
       }
     }
   }
@@ -108,22 +106,18 @@ def profile_views():
 
 
 def demo_data():
+    start = date.today().toordinal() - 370
+    start -= date.fromordinal(start).isoweekday() % 7
     days = []
-    start = date.today().toordinal() - 364
-    for i in range(365):
-        n = (i * 7919 + (i // 7) * 104729) % 17
-        days.append({"date": date.fromordinal(start + i).isoformat(),
-                     "contributionCount": 0 if n < 6 else n - 5})
-    weeks = [{"contributionDays": days[i:i + 7]} for i in range(0, 365, 7)]
-    return {
-        "repositoriesContributedTo": {"totalCount": 27},
-        "contributionsCollection": {
-            "contributionCalendar": {
-                "totalContributions": sum(d["contributionCount"] for d in days),
-                "weeks": weeks,
-            }
-        },
-    }
+    for i in range(371):
+        n = (i * 7919 + (i // 7) * 104729) % 19
+        d = date.fromordinal(start + i)
+        days.append({"date": d.isoformat(), "weekday": d.isoweekday() % 7,
+                     "contributionCount": 0 if n < 7 else n - 6})
+    return {"contributionsCollection": {"contributionCalendar": {
+        "totalContributions": sum(d["contributionCount"] for d in days),
+        "weeks": [{"contributionDays": days[i:i + 7]} for i in range(0, 371, 7)],
+    }}}
 
 
 def streaks(days):
@@ -142,25 +136,50 @@ def streaks(days):
     return cur, best
 
 
+def num(v):
+    return f"{v:.2f}".rstrip("0").rstrip(".")
+
+
 def rect(x, y, w, h, fill, extra=""):
-    return f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{fill}" {extra}/>'
+    return f'<rect x="{num(x)}" y="{num(y)}" width="{num(w)}" height="{num(h)}" fill="{fill}" {extra}/>'
 
 
-def label(x, y, size, fill, body, anchor="start", weight="500", extra=""):
-    return (f'<text x="{x}" y="{y}" font-family="{MONO}" font-size="{size}" font-weight="{weight}" '
-            f'fill="{fill}" text-anchor="{anchor}" {extra}>{body}</text>')
+def cell(x, y, size, fill, extra=""):
+    return rect(x, y, size, size, fill, f'rx="{num(size / 3.4)}" {extra}')
 
 
-def pixel_text(word, ox, oy, px, fill):
+def text(x, y, size, fill, body, anchor="start", weight="500", track=None, extra=""):
+    ls = f'letter-spacing="{track}" ' if track else ""
+    return (f'<text x="{num(x)}" y="{num(y)}" font-family="{MONO}" font-size="{size}" '
+            f'font-weight="{weight}" fill="{fill}" text-anchor="{anchor}" {ls}{extra}>{body}</text>')
+
+
+def wordmark(word, ox, oy, scale=1.0):
     out = []
+    w, h, track = GW * scale, GH * scale, TRACK * scale
+    inset = STROKE * scale / 2
     x = ox
     for letter in word:
-        for j, row in enumerate(FONT[letter]):
-            for i, ch in enumerate(row):
-                if ch == "#":
-                    out.append(rect(x + i * px, oy + j * px, px, px, fill))
-        x += 6 * px
-    return out, x - ox - px
+        for poly in GLYPHS[letter]:
+            pts = " ".join(
+                f"{num(x + inset + px * (w - 2 * inset))},{num(oy + inset + py * (h - 2 * inset))}"
+                for px, py in poly
+            )
+            out.append(
+                f'<polyline points="{pts}" fill="none" stroke="{C["fg"]}" '
+                f'stroke-width="{num(STROKE * scale)}" stroke-linecap="round" stroke-linejoin="round"/>'
+            )
+        x += w + track
+    return out, x - ox - track
+
+
+def level_of(count, quart):
+    if count <= 0:
+        return -1
+    for i, q in enumerate(quart):
+        if count <= q:
+            return i
+    return 3
 
 
 def render(user, views=None, placeholder=False):
@@ -168,6 +187,10 @@ def render(user, views=None, placeholder=False):
     weeks = cal["weeks"]
     days = [d for w in weeks for d in w["contributionDays"]]
     cur, best = streaks(days)
+    total = cal["totalContributions"]
+    counts = sorted(d["contributionCount"] for d in days if d["contributionCount"] > 0)
+    quart = ([counts[min(len(counts) - 1, len(counts) * (i + 1) // 4)] for i in range(4)]
+             if counts else [1, 2, 3, 4])
 
     p = []
     p.append(
@@ -175,118 +198,139 @@ def render(user, views=None, placeholder=False):
         'role="img" aria-label="Socrate, building Walyverse">'
     )
     p.append("""<style>
-  .bl { animation: bl 1.2s steps(1) infinite; }
-  @keyframes bl { 0%,49% { opacity:1 } 50%,100% { opacity:0 } }
-  .pu { animation: pu 7s ease-in-out infinite; }
-  @keyframes pu { 0%,100% { opacity:.2 } 50% { opacity:.6 } }
-  .ha { animation: ha 5s ease-in-out infinite; }
-  @keyframes ha { 0%,100% { opacity:.1 } 50% { opacity:.32 } }
+  .tdy { animation: tdy 2.6s ease-in-out infinite; }
+  @keyframes tdy { 0%,100% { opacity:.4 } 50% { opacity:1 } }
+  .brt { animation: brt 9s ease-in-out infinite; }
+  @keyframes brt { 0%,100% { opacity:.5 } 50% { opacity:.9 } }
 </style>""")
     p.append(f'''<defs>
-  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="{C['bg0']}"/><stop offset="1" stop-color="{C['bg1']}"/>
+  <linearGradient id="ground" x1="0" y1="0" x2=".35" y2="1">
+    <stop offset="0" stop-color="{C['ink0']}"/><stop offset="1" stop-color="{C['ink1']}"/>
   </linearGradient>
-  <linearGradient id="scrimx" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0" stop-color="{C['bg0']}" stop-opacity=".97"/>
-    <stop offset=".4" stop-color="{C['bg0']}" stop-opacity=".82"/>
-    <stop offset=".72" stop-color="{C['bg0']}" stop-opacity="0"/>
+  <radialGradient id="glow" cx=".5" cy=".5" r=".5">
+    <stop offset="0" stop-color="{C['accent']}" stop-opacity=".13"/>
+    <stop offset=".55" stop-color="{C['accent']}" stop-opacity=".04"/>
+    <stop offset="1" stop-color="{C['accent']}" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="cool" cx=".5" cy=".5" r=".5">
+    <stop offset="0" stop-color="#3f7bb0" stop-opacity=".16"/>
+    <stop offset="1" stop-color="#3f7bb0" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="{C['fg4']}" stop-opacity=".15"/>
+    <stop offset="1" stop-color="{C['fg4']}" stop-opacity="0"/>
   </linearGradient>
-  <linearGradient id="scrimy" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="{C['bg0']}" stop-opacity="0"/>
-    <stop offset="1" stop-color="{C['bg0']}" stop-opacity=".96"/>
-  </linearGradient>
-  <clipPath id="card"><rect width="{W}" height="{H}" rx="12"/></clipPath>
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3"/></filter>
+  <clipPath id="card"><rect width="{W}" height="{H}" rx="14"/></clipPath>
 </defs>''')
     p.append('<g clip-path="url(#card)">')
-    p.append(rect(0, 0, W, H, "url(#bg)"))
+    p.append(rect(0, 0, W, H, "url(#ground)"))
+    p.append(f'<ellipse cx="742" cy="118" rx="330" ry="240" fill="url(#glow)"/>')
+    p.append(f'<ellipse cx="180" cy="300" rx="300" ry="220" fill="url(#cool)"/>')
 
-    for gy in range(16, H, 28):
-        for gx in range(16, W, 28):
-            p.append(rect(gx, gy, 2, 2, C["grid"], 'opacity=".05"'))
+    # column guides: the grid the layout is built on, barely there
+    for i in range(1, 12):
+        gx = PAD + i * (INNER / 12)
+        p.append(rect(gx, 56, 1, 250, "url(#fade)"))
 
     edges = [(i, j) for i, a in enumerate(NODES) for j, b in enumerate(NODES)
              if j > i and math.hypot(a[0] - b[0], a[1] - b[1]) < LINK_RANGE]
-    for k, (i, j) in enumerate(edges):
+    net = []
+    for i, j in edges:
         x1, y1 = NODES[i]
         x2, y2 = NODES[j]
-        p.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{C["link"]}" '
-                 f'stroke-width="1.5" class="pu" style="animation-delay:{(k % 8) * 0.6:.1f}s"/>')
+        net.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{C["fg4"]}" '
+                   f'stroke-width="1" opacity=".5"/>')
     for i, (x, y) in enumerate(NODES):
         if i in HUBS:
-            p.append(f'<circle cx="{x}" cy="{y}" r="15" fill="{C["halo"]}" class="ha" '
-                     f'style="animation-delay:{i * 0.5:.1f}s"/>')
-            p.append(rect(x - 5, y - 5, 10, 10, C["gold"]))
+            net.append(f'<circle cx="{x}" cy="{y}" r="13" fill="{C["accent"]}" opacity=".08"/>')
+            net.append(cell(x - 4, y - 4, 8, C["accent"], 'opacity=".85"'))
         else:
-            p.append(rect(x - 4, y - 4, 8, 8, C["node"], 'opacity=".85"'))
+            net.append(cell(x - 3, y - 3, 6, C["fg3"], 'opacity=".55"'))
+    p.append(f'<g opacity=".8">{"".join(net)}</g>')
 
-    p.append(rect(0, 0, W, 200, "url(#scrimx)"))
-    p.append(rect(0, 150, W, 90, "url(#scrimy)"))
-    p.append(rect(0, 200, W, H - 200, C["bg0"], 'opacity=".96"'))
-    p.append(rect(0, 0, W, 3, C["gold"], 'opacity=".9"'))
+    # ---- top rail
+    p.append(cell(PAD, 27, 9, C["accent"]))
+    p.append(text(PAD + 22, 35, 11, C["fg"], "SOCRATE", weight="600", track=".24em"))
+    p.append(text(W - PAD, 35, 10, C["fg4"], "FRANCE", anchor="end", track=".24em"))
+    p.append(rect(PAD, 56, INNER, 1, C["rule"]))
 
-    px = 10
-    title, tw = pixel_text("SOCRATE", PAD, 52, px, C["text"])
-    p.extend(title)
-    p.append(rect(PAD + tw + px * 2, 52 + 6 * px, px, px, C["gold"], 'class="bl"'))
+    # ---- hero
+    p.append(text(PAD, 122, 10, C["accent"], "SOLO DEVELOPER", weight="600", track=".3em"))
+    mark, mw = wordmark("SOCRATE", PAD, 146)
+    p.extend(mark)
+    p.append(cell(PAD + mw + 20, 146 + GH - 11, 11, C["accent"], 'class="brt"'))
+    p.append(text(PAD, 254, 17, C["fg2"], "Building Walyverse, a French Minecraft universe."))
+    p.append(rect(PAD, 282, 56, 2, C["accent"]))
 
-    p.append(rect(PAD, 148, 130, 4, C["gold"]))
-    p.append(label(PAD, 186, 16, C["muted"],
-                   f'building <tspan fill="{C["gold"]}">Walyverse</tspan>, '
-                   f'a French Minecraft universe'))
-
-    p.append(rect(PAD, 216, INNER, 1, C["rule"]))
-
-    y = 252
-    for name, body in LINES:
-        p.append(label(PAD, y, 14, C["text"], name, weight="600"))
-        p.append(label(PAD + 176, y, 14, C["muted"], body))
-        y += 34
-
-    p.append(rect(PAD, 384, INNER, 1, C["rule"]))
-
-    stats = [
-        (f'{cal["totalContributions"]:,}', "contributions this year"),
-        (str(cur), "current streak"),
-        (str(best), "best streak"),
-        (str(user["repositoriesContributedTo"]["totalCount"]), "repos contributed to"),
-        (f"{views:,}" if views else "—", "profile views"),
-    ]
+    # ---- data panel
+    py0, py1 = 318, 516
+    p.append(rect(PAD, py0, INNER, py1 - py0, C["panel"],
+                  f'rx="12" stroke="{C["rule"]}" stroke-width="1"'))
+    px0 = PAD + 26
+    pw = INNER - 52
+    p.append(text(px0, py0 + 34, 10, C["fg4"], "THE LAST YEAR, DAY BY DAY", weight="600", track=".22em"))
     if placeholder:
-        stats = [("—", name) for _, name in stats]
-    for i, (num, name) in enumerate(stats):
-        x = PAD + i * (INNER // 5)
-        p.append(label(x, 430, 26, C["text"], num, weight="700"))
-        p.append(label(x, 450, 10, C["faint"], name))
+        meta = '<tspan fill="#5c6a80">AWAITING FIRST SYNC</tspan>'
+    else:
+        meta = (f'<tspan fill="{C["accent"]}" font-weight="700">{total:,}</tspan> CONTRIBUTIONS'
+                f'<tspan fill="{C["rule"]}"> / </tspan>'
+                f'<tspan fill="{C["accent"]}" font-weight="700">{cur}</tspan> DAY STREAK')
+        if views:
+            meta += (f'<tspan fill="{C["rule"]}"> / </tspan>'
+                     f'<tspan fill="{C["accent"]}" font-weight="700">{views:,}</tspan> VIEWS')
+    p.append(text(PAD + INNER - 26, py0 + 34, 10, C["fg3"], meta, anchor="end", track=".14em"))
 
-    window = 16
-    weekly = [sum(d["contributionCount"] for d in w["contributionDays"]) for w in weeks][-window:]
-    if placeholder:
-        weekly = [0] * window
-    top = max(weekly) if any(weekly) else 1
-    nonzero = sorted(v for v in weekly if v > 0)
-    quart = ([nonzero[min(len(nonzero) - 1, len(nonzero) * (i + 1) // 4)] for i in range(4)]
-             if nonzero else [1, 2, 3, 4])
-    peak = max(range(len(weekly)), key=lambda i: (weekly[i], i)) if any(weekly) else -1
+    step = pw / len(weeks)
+    size = step - 3.2
+    gtop = py0 + 64
+    today = days[-1]["date"] if days else None
+    for wi, week in enumerate(weeks):
+        x = px0 + wi * step
+        for d in week["contributionDays"]:
+            y = gtop + d.get("weekday", 0) * step
+            lv = -1 if placeholder else level_of(d["contributionCount"], quart)
+            p.append(cell(x, y, size, C["empty"] if lv < 0 else C["ramp"][lv]))
+            if d["date"] == today and not placeholder:
+                p.append(cell(x, y, size, "none",
+                              f'stroke="{C["accent"]}" stroke-width="1.6" class="tdy"'))
 
-    base, gap = 552, 6
-    n = len(weekly)
-    bw = (INNER - (n - 1) * gap) // n
-    for i, v in enumerate(weekly):
-        if v == 0:
-            bh, fill = 3, C["empty"]
-        elif i == peak:
-            bh, fill = 78, C["gold"]
-        else:
-            bh = max(6, round(math.sqrt(v / top) * 78))
-            fill = C["levels"][min(3, next(k for k, q in enumerate(quart) if v <= q))]
-        p.append(rect(PAD + i * (bw + gap), base - bh, bw, bh, fill,
-                      'rx="3"'))
-    p.append(rect(PAD, base + 4, INNER, 1, C["rule"]))
+    ticks = []
+    for wi, week in enumerate(weeks):
+        month = int(week["contributionDays"][0]["date"][5:7])
+        if not ticks or (month != ticks[-1][1] and wi - ticks[-1][0] >= 4):
+            ticks.append((wi, month))
+    for wi, month in ticks[1:]:
+        p.append(text(px0 + wi * step, gtop - 10, 9, C["fg4"], MONTHS[month - 1], track=".16em"))
 
-    p.append(label(PAD, 578, 13, C["gold"], "walyverse.com", extra='opacity=".9"'))
-    p.append(label(W - PAD, 578, 12, C["faint"], "x.com/Seiiiki_ · discord @seiiki_", anchor="end"))
+    leg_y = gtop + 7 * step + 22
+    lx = PAD + INNER - 26
+    p.append(text(lx, leg_y, 9, C["fg4"], "MORE", anchor="end", track=".16em"))
+    for i in range(4):
+        p.append(cell(lx - 42 - (3 - i) * 13, leg_y - 8, 9, C["ramp"][i]))
+    p.append(cell(lx - 42 - 4 * 13, leg_y - 8, 9, C["empty"]))
+    p.append(text(lx - 42 - 4 * 13 - 9, leg_y, 9, C["fg4"], "LESS", anchor="end", track=".16em"))
 
+    # ---- numbered sections
+    col = INNER / 4
+    for i, (n_, name, desc) in enumerate(SECTIONS):
+        x = PAD + i * col
+        if i:
+            p.append(rect(x - 16, 548, 1, 62, C["rule_soft"]))
+        p.append(text(x, 568, 10, C["accent"], n_, weight="700", track=".2em"))
+        p.append(text(x + 30, 568, 11.5, C["fg"], name, weight="600", track=".14em"))
+        p.append(text(x, 592, 11, C["fg4"], desc))
+
+    # ---- footer
+    p.append(rect(PAD, 626, INNER, 1, C["rule"]))
+    p.append(text(PAD, 654, 12, C["accent"], "WALYVERSE.COM", weight="600", track=".2em"))
+    p.append(text(W - PAD, 654, 11, C["fg4"], "X.COM/SEIIIKI_   ·   DISCORD @SEIIKI_",
+                  anchor="end", track=".16em"))
+
+    p.append(rect(0, 0, W, H, "#ffffff",
+                  'filter="url(#grain)" opacity=".05" style="mix-blend-mode:soft-light"'))
     p.append("</g>")
+    p.append(f'<rect x=".5" y=".5" width="{W-1}" height="{H-1}" rx="14" fill="none" stroke="{C["rule"]}"/>')
     p.append("</svg>")
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
