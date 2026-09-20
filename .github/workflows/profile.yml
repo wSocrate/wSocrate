@@ -29,11 +29,15 @@ jobs:
         run: |
           echo "personal token found: $HAS_PAT"
           python scripts/render_profile.py
+          # the image URL never changes, so GitHub's proxy keeps serving the old
+          # copy: stamp a version on it so each refresh is a new URL
+          stamp=$(date -u +%Y%m%d%H%M)
+          sed -i -E "s#assets/profile\.svg(\?v=[0-9]+)?#assets/profile.svg?v=$stamp#" README.md
 
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/profile.svg
+          git add assets/profile.svg README.md
           git diff --cached --quiet || git commit -m "profile: refresh stats"
           git pull --rebase origin main
           git push
