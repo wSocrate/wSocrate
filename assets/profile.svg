@@ -58,7 +58,7 @@
 <polyline points="467.5,150.5 432.5,150.5 432.5,203.5 467.5,203.5" fill="none" stroke="#f4f7fb" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
 <polyline points="432.5,177 459.8,177" fill="none" stroke="#f4f7fb" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
 <rect x="492" y="197" width="11" height="11" fill="#f2c14e" rx="3.24" class="brt"/>
-<text x="56" y="254" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="17" font-weight="500" fill="#c9d5e4" text-anchor="start" >Building Walyverse, a French Minecraft universe.</text>
+<text x="56" y="254" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="16.5" font-weight="500" fill="#c9d5e4" text-anchor="start" >Building the worlds people log into, and the platform they run on.</text>
 <rect x="56" y="282" width="56" height="2" fill="#f2c14e" />
 <rect x="56" y="318" width="768" height="198" fill="#0b111d" rx="12" stroke="#1a2334" stroke-width="1"/>
 <text x="82" y="352" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="10" font-weight="600" fill="#5c6a80" text-anchor="start" letter-spacing=".22em" >ALL TIME</text>

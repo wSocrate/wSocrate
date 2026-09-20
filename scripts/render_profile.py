@@ -332,7 +332,8 @@ def render(data, views=None, placeholder=False):
     mark, mw = wordmark("SOCRATE", PAD, 146)
     p.extend(mark)
     p.append(cell(PAD + mw + 20, 146 + GH - 11, 11, C["accent"], 'class="brt"'))
-    p.append(text(PAD, 254, 17, C["fg2"], "Building Walyverse, a French Minecraft universe."))
+    p.append(text(PAD, 254, 16.5, C["fg2"],
+                  "Building the worlds people log into, and the platform they run on."))
     p.append(rect(PAD, 282, 56, 2, C["accent"]))
 
     # ---- data panel
