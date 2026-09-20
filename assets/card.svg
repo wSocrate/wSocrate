@@ -63,7 +63,7 @@
 <g transform="translate(351,146) scale(1)" fill="none" stroke="url(#mark)" stroke-width="12" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="1.6"><path d="M 0 6 L 48 6"/><path d="M 24 6 L 24 66"/></g>
 <g transform="translate(410,146) scale(1)" fill="none" stroke="url(#mark)" stroke-width="12" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="1.6"><path d="M 6 0 L 6 66"/><path d="M 6 6 L 44 6"/><path d="M 6 33 L 38 33"/><path d="M 6 60 L 44 60"/></g>
 <rect x="478" y="200" width="12" height="12" fill="#f2c14e" rx="3.53" class="brt"/>
-<text x="56" y="254" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="16.5" font-weight="500" fill="#c9d5e4" text-anchor="start" >Building the worlds people log into, and the platform they run on.</text>
+<text x="56" y="254" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="19" font-weight="500" fill="#c9d5e4" text-anchor="start" >Building worlds, systems &amp; communities.</text>
 <rect x="56" y="282" width="56" height="2" fill="#f2c14e" />
 <rect x="56" y="318" width="708" height="198" fill="#0b111d" rx="12" stroke="#1a2334" stroke-width="1"/>
 <text x="82" y="352" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="10" font-weight="600" fill="#5c6a80" text-anchor="start" letter-spacing=".22em" >ON GITHUB SINCE 2020</text>
