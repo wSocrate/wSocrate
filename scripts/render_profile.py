@@ -337,7 +337,7 @@ def render(data, views=None, placeholder=False):
     p.append(rect(PAD, 56, INNER, 1, C["rule"]))
 
     # ---- hero
-    p.append(text(PAD, 122, 10, C["accent"], "ONE-MAN STUDIO", weight="600", track=".3em"))
+    p.append(text(PAD, 122, 10, C["accent"], "I SHIP INFRASTRUCTURE", weight="600", track=".3em"))
     mark, mw = wordmark("SOCRATE", PAD, 146)
     p.extend(mark)
     p.append(cell(PAD + mw + 20, 146 + GH - 11, 11, C["accent"], 'class="brt"'))
