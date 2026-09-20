@@ -8,7 +8,7 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 LOGIN = "wSocrate"
-OUT = Path(__file__).resolve().parent.parent / "assets" / "profile.svg"
+OUT = Path(__file__).resolve().parent.parent / "assets" / "card.svg"
 
 W, H = 880, 672
 PAD = 56
