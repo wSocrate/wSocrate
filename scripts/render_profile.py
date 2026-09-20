@@ -331,8 +331,8 @@ def render(data, views=None, placeholder=False):
 
     # ---- top rail
     p.append(cell(PAD, 27, 9, C["accent"]))
-    p.append(text(PAD + 22, 35, 11, C["fg"], "SOCRATE", weight="600", track=".24em"))
-    p.append(text(W - PAD, 35, 10, C["fg4"], "7+ YEARS LIVE · 50K+ PLAYERS",
+    p.append(text(PAD + 22, 35, 11, C["fg3"], "GITHUB.COM/WSOCRATE", weight="600", track=".2em"))
+    p.append(text(W - PAD, 35, 10, C["fg4"], "7+ YEARS RUNNING LIVE WORLDS",
                   anchor="end", track=".22em"))
     p.append(rect(PAD, 56, INNER, 1, C["rule"]))
 
