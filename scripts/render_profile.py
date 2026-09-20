@@ -350,16 +350,20 @@ def render(data, views=None, placeholder=False):
                   f'rx="12" stroke="{C["rule"]}" stroke-width="1"'))
     px0 = PAD + 26
     pw = INNER - 52
-    p.append(text(px0, py0 + 34, 10, C["fg4"],
-                  "ALL TIME" if placeholder else f"ON GITHUB SINCE {since}", weight="600", track=".22em"))
     if placeholder:
-        meta = '<tspan fill="#5c6a80">AWAITING FIRST SYNC</tspan>'
+        stats = f'<tspan fill="{C["fg4"]}">AWAITING FIRST SYNC</tspan>'
     else:
-        sep = f'<tspan fill="{C["rule"]}"> / </tspan>'
-        gold = f'<tspan fill="{C["accent"]}" font-weight="700">'
-        meta = (f'{gold}{total:,}</tspan> CONTRIBUTIONS{sep}'
-                f'{gold}{cur}</tspan> DAY STREAK, BEST {best}')
-    p.append(text(PAD + INNER - 26, py0 + 34, 10, C["fg3"], meta, anchor="end", track=".12em"))
+        gap = f'<tspan fill="{C["rule"]}">   /   </tspan>'
+
+        def stat(value, label):
+            return (f'<tspan font-size="17" font-weight="700" fill="{C["accent"]}" '
+                    f'letter-spacing="0">{value}</tspan>'
+                    f'<tspan fill="{C["fg3"]}"> {label}</tspan>')
+
+        stats = gap.join([stat(f"{total:,}", "CONTRIBUTIONS"),
+                          stat(cur, "DAY STREAK"),
+                          stat(best, "DAY RECORD")])
+    p.append(text(px0, py0 + 36, 10, C["fg3"], stats, track=".14em"))
 
     step = pw / len(weeks)
     size = step - 3.2
@@ -390,7 +394,6 @@ def render(data, views=None, placeholder=False):
         p.append(cell(lx - 42 - (3 - i) * 13, leg_y - 8, 9, C["ramp"][i]))
     p.append(cell(lx - 42 - 4 * 13, leg_y - 8, 9, C["empty"]))
     p.append(text(lx - 42 - 4 * 13 - 9, leg_y, 9, C["fg4"], "LESS", anchor="end", track=".16em"))
-    p.append(text(px0, leg_y, 9, C["fg4"], "THE LAST YEAR, DAY BY DAY", track=".16em"))
 
     # ---- numbered sections, on the same column span as the calendar above
     col = pw / 4
