@@ -4,7 +4,7 @@ import os
 import re
 import sys
 import urllib.request
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 LOGIN = "wSocrate"
@@ -61,27 +61,14 @@ SECTIONS = [
     ("04", "WEB", "dashboards &amp; store"),
 ]
 
-QUERY = """
-query($login: String!) {
-  user(login: $login) {
-    contributionsCollection {
-      contributionCalendar {
-        totalContributions
-        weeks { contributionDays { date contributionCount weekday } }
-      }
-    }
-  }
-}
-"""
+RECENT = ("recent: contributionsCollection { contributionCalendar { weeks { "
+          "contributionDays { date contributionCount weekday } } } }")
 
 
-def fetch():
-    token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
-    if not token:
-        sys.exit("GH_TOKEN missing (or run with --demo)")
+def gql(token, query):
     req = urllib.request.Request(
         "https://api.github.com/graphql",
-        data=json.dumps({"query": QUERY, "variables": {"login": LOGIN}}).encode(),
+        data=json.dumps({"query": query, "variables": {"login": LOGIN}}).encode(),
         headers={"Authorization": f"bearer {token}", "Content-Type": "application/json"},
     )
     with urllib.request.urlopen(req) as r:
@@ -89,6 +76,68 @@ def fetch():
     if "errors" in payload:
         sys.exit(f"GraphQL: {payload['errors']}")
     return payload["data"]["user"]
+
+
+def fetch():
+    """GitHub only serves one year of contributions per call, so walk the years
+    since the account was opened and add them up."""
+    token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
+    if not token:
+        sys.exit("GH_TOKEN missing (or run with --demo)")
+
+    created = gql(token, "query($login: String!) { user(login: $login) { createdAt } }")["createdAt"]
+    since = int(created[:4])
+    now = datetime.now(timezone.utc)
+    years = list(range(since, now.year + 1))
+
+    windows = []
+    for y in years:
+        frm = f"{y}-01-01T00:00:00Z"
+        to = f"{y}-12-31T23:59:59Z" if y < now.year else now.strftime("%Y-%m-%dT%H:%M:%SZ")
+        windows.append(
+            f'y{y}: contributionsCollection(from: "{frm}", to: "{to}") {{ contributionCalendar {{ '
+            f"totalContributions weeks {{ contributionDays {{ date contributionCount }} }} }} }}"
+        )
+    user = gql(token, "query($login: String!) { user(login: $login) { "
+                      + RECENT + " " + " ".join(windows) + " } }")
+
+    total = 0
+    seen = {}
+    for y in years:
+        cal = user[f"y{y}"]["contributionCalendar"]
+        total += cal["totalContributions"]
+        for week in cal["weeks"]:
+            for d in week["contributionDays"]:
+                # weeks overlap the window edges, and clipped days come back as 0
+                seen[d["date"]] = max(seen.get(d["date"], 0), d["contributionCount"])
+
+    cur, best = streaks(seen)
+    return {
+        "weeks": user["recent"]["contributionCalendar"]["weeks"],
+        "total": total, "cur": cur, "best": best, "since": since,
+        "active": sum(1 for v in seen.values() if v > 0),
+    }
+
+
+def streaks(seen):
+    """Longest and current run of consecutive days with at least one contribution."""
+    if not seen:
+        return 0, 0
+    day = date.fromisoformat(min(seen))
+    last = date.today()
+    best = run = 0
+    while day <= last:
+        run = run + 1 if seen.get(day.isoformat(), 0) > 0 else 0
+        best = max(best, run)
+        day += timedelta(days=1)
+    cur = 0
+    day = last
+    if seen.get(day.isoformat(), 0) == 0:
+        day -= timedelta(days=1)
+    while seen.get(day.isoformat(), 0) > 0:
+        cur += 1
+        day -= timedelta(days=1)
+    return cur, best
 
 
 def profile_views():
@@ -114,26 +163,13 @@ def demo_data():
         d = date.fromordinal(start + i)
         days.append({"date": d.isoformat(), "weekday": d.isoweekday() % 7,
                      "contributionCount": 0 if n < 7 else n - 6})
-    return {"contributionsCollection": {"contributionCalendar": {
-        "totalContributions": sum(d["contributionCount"] for d in days),
+    seen = {d["date"]: d["contributionCount"] for d in days}
+    cur, best = streaks(seen)
+    return {
         "weeks": [{"contributionDays": days[i:i + 7]} for i in range(0, 371, 7)],
-    }}}
-
-
-def streaks(days):
-    best = run = cur = 0
-    for d in days:
-        run = run + 1 if d["contributionCount"] > 0 else 0
-        best = max(best, run)
-    tail = list(reversed(days))
-    if tail and tail[0]["contributionCount"] == 0:
-        tail = tail[1:]
-    for d in tail:
-        if d["contributionCount"] > 0:
-            cur += 1
-        else:
-            break
-    return cur, best
+        "total": sum(seen.values()) * 5, "cur": cur, "best": best, "since": 2020,
+        "active": sum(1 for v in seen.values() if v > 0),
+    }
 
 
 def num(v):
@@ -182,12 +218,10 @@ def level_of(count, quart):
     return 3
 
 
-def render(user, views=None, placeholder=False):
-    cal = user["contributionsCollection"]["contributionCalendar"]
-    weeks = cal["weeks"]
+def render(data, views=None, placeholder=False):
+    weeks = data["weeks"]
     days = [d for w in weeks for d in w["contributionDays"]]
-    cur, best = streaks(days)
-    total = cal["totalContributions"]
+    total, cur, best, since = data["total"], data["cur"], data["best"], data["since"]
     counts = sorted(d["contributionCount"] for d in days if d["contributionCount"] > 0)
     quart = ([counts[min(len(counts) - 1, len(counts) * (i + 1) // 4)] for i in range(4)]
              if counts else [1, 2, 3, 4])
@@ -269,17 +303,19 @@ def render(user, views=None, placeholder=False):
                   f'rx="12" stroke="{C["rule"]}" stroke-width="1"'))
     px0 = PAD + 26
     pw = INNER - 52
-    p.append(text(px0, py0 + 34, 10, C["fg4"], "THE LAST YEAR, DAY BY DAY", weight="600", track=".22em"))
+    p.append(text(px0, py0 + 34, 10, C["fg4"],
+                  "ALL TIME" if placeholder else f"SINCE {since}", weight="600", track=".22em"))
     if placeholder:
         meta = '<tspan fill="#5c6a80">AWAITING FIRST SYNC</tspan>'
     else:
-        meta = (f'<tspan fill="{C["accent"]}" font-weight="700">{total:,}</tspan> CONTRIBUTIONS'
-                f'<tspan fill="{C["rule"]}"> / </tspan>'
-                f'<tspan fill="{C["accent"]}" font-weight="700">{cur}</tspan> DAY STREAK')
+        sep = f'<tspan fill="{C["rule"]}"> / </tspan>'
+        gold = f'<tspan fill="{C["accent"]}" font-weight="700">'
+        meta = (f'{gold}{total:,}</tspan> CONTRIBUTIONS{sep}'
+                f'{gold}{data["active"]:,}</tspan> ACTIVE DAYS{sep}'
+                f'{gold}{cur}</tspan> DAY STREAK, BEST {best}')
         if views:
-            meta += (f'<tspan fill="{C["rule"]}"> / </tspan>'
-                     f'<tspan fill="{C["accent"]}" font-weight="700">{views:,}</tspan> VIEWS')
-    p.append(text(PAD + INNER - 26, py0 + 34, 10, C["fg3"], meta, anchor="end", track=".14em"))
+            meta += f'{sep}{gold}{views:,}</tspan> VIEWS'
+    p.append(text(PAD + INNER - 26, py0 + 34, 9.5, C["fg3"], meta, anchor="end", track=".11em"))
 
     step = pw / len(weeks)
     size = step - 3.2
@@ -310,6 +346,7 @@ def render(user, views=None, placeholder=False):
         p.append(cell(lx - 42 - (3 - i) * 13, leg_y - 8, 9, C["ramp"][i]))
     p.append(cell(lx - 42 - 4 * 13, leg_y - 8, 9, C["empty"]))
     p.append(text(lx - 42 - 4 * 13 - 9, leg_y, 9, C["fg4"], "LESS", anchor="end", track=".16em"))
+    p.append(text(px0, leg_y, 9, C["fg4"], "THE LAST YEAR, DAY BY DAY", track=".16em"))
 
     # ---- numbered sections
     col = INNER / 4
