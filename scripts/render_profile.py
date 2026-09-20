@@ -359,8 +359,6 @@ def render(data, views=None, placeholder=False):
         gold = f'<tspan fill="{C["accent"]}" font-weight="700">'
         meta = (f'{gold}{total:,}</tspan> CONTRIBUTIONS{sep}'
                 f'{gold}{cur}</tspan> DAY STREAK, BEST {best}')
-        if views:
-            meta += f'{sep}{gold}{views:,}</tspan> VIEWS'
     p.append(text(PAD + INNER - 26, py0 + 34, 10, C["fg3"], meta, anchor="end", track=".12em"))
 
     step = pw / len(weeks)
@@ -407,6 +405,10 @@ def render(data, views=None, placeholder=False):
     # ---- footer
     p.append(rect(PAD, 626, INNER, 1, C["rule"]))
     p.append(text(PAD, 654, 12, C["accent"], "WALYVERSE.COM", weight="600", track=".2em"))
+    if views and not placeholder:
+        p.append(text(W / 2, 654, 11, C["fg4"],
+                      f'<tspan fill="{C["accent"]}" font-weight="700">{views:,}</tspan> PROFILE VIEWS',
+                      anchor="middle", track=".14em"))
     p.extend(handles(W - PAD, 654, [(X_MARK, "@Seiiiki_"), (DISCORD_MARK, "@seiiki_")]))
 
     p.append(rect(0, 0, W, H, "#ffffff",
