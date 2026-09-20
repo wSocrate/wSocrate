@@ -10,7 +10,7 @@ from pathlib import Path
 LOGIN = "wSocrate"
 OUT = Path(__file__).resolve().parent.parent / "assets" / "card.svg"
 
-W, H = 880, 672
+W, H = 820, 672
 PAD = 56
 INNER = W - PAD * 2
 
@@ -31,22 +31,24 @@ C = {
 
 MONO = "ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace"
 
-# geometric display face: normalised polylines, stroked with round caps and joins
+# display face: one stem weight, flat terminals, true curves on the round letters.
+# drawn on a 48 x 66 box, baseline at 66, centreline inset by half a stem
+CAP, GW, STEM, TRACK = 66.0, 48.0, 12.0, 11.0
+R = 13.5  # lobe radius, a quarter of the cap height
+
 GLYPHS = {
-    "S": [[(1, 0), (0, 0), (0, .5), (1, .5), (1, 1), (0, 1)]],
-    "O": [[(0, 0), (1, 0), (1, 1), (0, 1), (0, 0)]],
-    "C": [[(1, 0), (0, 0), (0, 1), (1, 1)]],
-    "R": [[(0, 1), (0, 0), (.94, 0), (.94, .5), (0, .5)], [(.44, .5), (1, 1)]],
-    "A": [[(0, 1), (.5, 0), (1, 1)], [(.17, .66), (.83, .66)]],
-    "T": [[(0, 0), (1, 0)], [(.5, 0), (.5, 1)]],
-    "E": [[(1, 0), (0, 0), (0, 1), (1, 1)], [(0, .5), (.78, .5)]],
+    "S": [f"M 37.5 19.5 A {R} {R} 0 1 0 24 33 A {R} {R} 0 1 1 10.5 46.5"],
+    "O": ["M 24 0 L 24 0 M 6 24 A 18 18 0 0 1 42 24 L 42 42 A 18 18 0 0 1 6 42 Z"],
+    "C": ["M 42 24 A 18 18 0 0 0 6 24 L 6 42 A 18 18 0 0 0 42 42"],
+    "R": [f"M 6 66 L 6 6 L 24 6 A {R} {R} 0 0 1 24 33 L 6 33", "M 23 33 L 42 66"],
+    "A": ["M 6 66 L 24 6 L 42 66", "M 12.5 45 L 35.5 45"],
+    "T": ["M 0 6 L 48 6", "M 24 6 L 24 66"],
+    "E": ["M 6 0 L 6 66", "M 6 6 L 44 6", "M 6 33 L 38 33", "M 6 60 L 44 60"],
 }
-GW, GH, TRACK = 44.0, 62.0, 18.0
-STROKE = 9.0
 
 NODES = [
-    (588, 96), (646, 62), (628, 152), (700, 108), (688, 196), (744, 66),
-    (762, 148), (800, 100), (818, 198), (836, 58),
+    (532, 96), (590, 62), (572, 152), (644, 108), (632, 196), (688, 66),
+    (706, 148), (744, 100), (762, 198), (780, 58),
 ]
 HUBS = {3, 7}
 LINK_RANGE = 84
@@ -55,9 +57,9 @@ MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
           "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
 
 SECTIONS = [
-    ("01", "CONTROL PLANE", "fleet scheduling, deploys"),
-    ("02", "IDENTITY &amp; STATE", "one record, fleet wide"),
-    ("03", "TRANSACTIONAL CORE", "ledger, market, payments"),
+    ("01", "CONTROL PLANE", "scheduling &amp; deploys"),
+    ("02", "IDENTITY &amp; STATE", "one player record"),
+    ("03", "TRANSACTIONAL CORE", "ledger and payments"),
     ("04", "RUNTIME", "menus, locale, chat"),
 ]
 
@@ -212,21 +214,16 @@ def text(x, y, size, fill, body, anchor="start", weight="500", track=None, extra
 
 def wordmark(word, ox, oy, scale=1.0):
     out = []
-    w, h, track = GW * scale, GH * scale, TRACK * scale
-    inset = STROKE * scale / 2
     x = ox
     for letter in word:
-        for poly in GLYPHS[letter]:
-            pts = " ".join(
-                f"{num(x + inset + px * (w - 2 * inset))},{num(oy + inset + py * (h - 2 * inset))}"
-                for px, py in poly
-            )
-            out.append(
-                f'<polyline points="{pts}" fill="none" stroke="{C["fg"]}" '
-                f'stroke-width="{num(STROKE * scale)}" stroke-linecap="round" stroke-linejoin="round"/>'
-            )
-        x += w + track
-    return out, x - ox - track
+        strokes = "".join(f'<path d="{d}"/>' for d in GLYPHS[letter])
+        out.append(
+            f'<g transform="translate({num(x)},{num(oy)}) scale({num(scale)})" fill="none" '
+            f'stroke="url(#mark)" stroke-width="{num(STEM)}" stroke-linecap="butt" '
+            f'stroke-linejoin="miter" stroke-miterlimit="1.6">{strokes}</g>'
+        )
+        x += (GW + TRACK) * scale
+    return out, x - ox - TRACK * scale
 
 
 def level_of(count, quart):
@@ -298,12 +295,15 @@ def render(data, views=None, placeholder=False):
     <stop offset="0" stop-color="{C['fg4']}" stop-opacity=".15"/>
     <stop offset="1" stop-color="{C['fg4']}" stop-opacity="0"/>
   </linearGradient>
+  <linearGradient id="mark" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="66">
+    <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#c2cfe2"/>
+  </linearGradient>
   <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3"/></filter>
   <clipPath id="card"><rect width="{W}" height="{H}" rx="14"/></clipPath>
 </defs>''')
     p.append('<g clip-path="url(#card)">')
     p.append(rect(0, 0, W, H, "url(#ground)"))
-    p.append(f'<ellipse cx="742" cy="118" rx="330" ry="240" fill="url(#glow)"/>')
+    p.append(f'<ellipse cx="690" cy="118" rx="330" ry="240" fill="url(#glow)"/>')
     p.append(f'<ellipse cx="180" cy="300" rx="300" ry="220" fill="url(#cool)"/>')
 
     # column guides: the grid the layout is built on, barely there
@@ -340,7 +340,7 @@ def render(data, views=None, placeholder=False):
     p.append(text(PAD, 122, 10, C["accent"], "FOUNDER @WALYVERSE", weight="600", track=".3em"))
     mark, mw = wordmark("SOCRATE", PAD, 146)
     p.extend(mark)
-    p.append(cell(PAD + mw + 20, 146 + GH - 11, 11, C["accent"], 'class="brt"'))
+    p.append(cell(PAD + mw + 20, 146 + CAP - 12, 12, C["accent"], 'class="brt"'))
     p.append(text(PAD, 254, 16.5, C["fg2"],
                   "Building the worlds people log into, and the platform they run on."))
     p.append(rect(PAD, 282, 56, 2, C["accent"]))
@@ -359,11 +359,10 @@ def render(data, views=None, placeholder=False):
         sep = f'<tspan fill="{C["rule"]}"> / </tspan>'
         gold = f'<tspan fill="{C["accent"]}" font-weight="700">'
         meta = (f'{gold}{total:,}</tspan> CONTRIBUTIONS{sep}'
-                f'{gold}{data["active"]:,}</tspan> ACTIVE DAYS{sep}'
                 f'{gold}{cur}</tspan> DAY STREAK, BEST {best}')
         if views:
             meta += f'{sep}{gold}{views:,}</tspan> VIEWS'
-    p.append(text(PAD + INNER - 26, py0 + 34, 9.5, C["fg3"], meta, anchor="end", track=".11em"))
+    p.append(text(PAD + INNER - 26, py0 + 34, 10, C["fg3"], meta, anchor="end", track=".12em"))
 
     step = pw / len(weeks)
     size = step - 3.2
@@ -403,7 +402,7 @@ def render(data, views=None, placeholder=False):
         if i:
             p.append(rect(x - 18, 536, 1, 74, C["rule_soft"]))
         p.append(text(x, 556, 10, C["accent"], n_, weight="700", track=".22em"))
-        p.append(text(x, 578, 11.5, C["fg"], name, weight="600", track=".12em"))
+        p.append(text(x, 578, 11, C["fg"], name, weight="600", track=".1em"))
         p.append(text(x, 600, 11, C["fg4"], desc))
 
     # ---- footer
