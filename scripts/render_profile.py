@@ -57,10 +57,10 @@ MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
           "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
 
 SECTIONS = [
-    ("01", "CONTROL PLANE", "scheduling &amp; deploys"),
-    ("02", "IDENTITY &amp; STATE", "one player record"),
-    ("03", "TRANSACTIONAL CORE", "ledger and payments"),
-    ("04", "RUNTIME", "menus, locale, chat"),
+    ("01", "DURABLE", "one source of truth"),
+    ("02", "IDEMPOTENT", "survives every replay"),
+    ("03", "AUDITABLE", "journals, not guesses"),
+    ("04", "BOUNDED", "predictable at load"),
 ]
 
 RECENT = ("recent: contributionsCollection { contributionCalendar { weeks { "
