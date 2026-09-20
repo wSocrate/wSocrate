@@ -55,10 +55,10 @@ MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
           "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
 
 SECTIONS = [
-    ("01", "GAMEPLAY", "plugins &amp; systems"),
-    ("02", "NETWORK", "a fleet of servers"),
-    ("03", "INFRASTRUCTURE", "Ferry, deployment"),
-    ("04", "WEB", "dashboards &amp; store"),
+    ("01", "CONTROL PLANE", "fleet scheduling, deploys"),
+    ("02", "IDENTITY &amp; STATE", "one record, fleet wide"),
+    ("03", "TRANSACTIONAL CORE", "ledger, market, payments"),
+    ("04", "RUNTIME", "menus, locale, chat"),
 ]
 
 RECENT = ("recent: contributionsCollection { contributionCalendar { weeks { "
@@ -274,6 +274,12 @@ def render(data, views=None, placeholder=False):
   @keyframes tdy { 0%,100% { opacity:.4 } 50% { opacity:1 } }
   .brt { animation: brt 9s ease-in-out infinite; }
   @keyframes brt { 0%,100% { opacity:.5 } 50% { opacity:.9 } }
+  .pu { animation: pu 7s ease-in-out infinite; }
+  @keyframes pu { 0%,100% { opacity:.22 } 50% { opacity:.62 } }
+  .ha { animation: ha 5.5s ease-in-out infinite; }
+  @keyframes ha { 0%,100% { opacity:.05 } 50% { opacity:.2 } }
+  .tw { animation: tw 4.2s ease-in-out infinite; }
+  @keyframes tw { 0%,100% { opacity:.4 } 50% { opacity:.85 } }
 </style>""")
     p.append(f'''<defs>
   <linearGradient id="ground" x1="0" y1="0" x2=".35" y2="1">
@@ -308,27 +314,30 @@ def render(data, views=None, placeholder=False):
     edges = [(i, j) for i, a in enumerate(NODES) for j, b in enumerate(NODES)
              if j > i and math.hypot(a[0] - b[0], a[1] - b[1]) < LINK_RANGE]
     net = []
-    for i, j in edges:
+    for k, (i, j) in enumerate(edges):
         x1, y1 = NODES[i]
         x2, y2 = NODES[j]
         net.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{C["fg4"]}" '
-                   f'stroke-width="1" opacity=".5"/>')
+                   f'stroke-width="1" opacity=".4" class="pu" style="animation-delay:{(k % 5) * 0.8:.1f}s"/>')
     for i, (x, y) in enumerate(NODES):
         if i in HUBS:
-            net.append(f'<circle cx="{x}" cy="{y}" r="13" fill="{C["accent"]}" opacity=".08"/>')
+            net.append(f'<circle cx="{x}" cy="{y}" r="13" fill="{C["accent"]}" opacity=".12" class="ha" '
+                       f'style="animation-delay:{i * 0.7:.1f}s"/>')
             net.append(cell(x - 4, y - 4, 8, C["accent"], 'opacity=".85"'))
         else:
-            net.append(cell(x - 3, y - 3, 6, C["fg3"], 'opacity=".55"'))
+            net.append(cell(x - 3, y - 3, 6, C["fg3"],
+                            f'opacity=".6" class="tw" style="animation-delay:{i * 0.55:.1f}s"'))
     p.append(f'<g opacity=".8">{"".join(net)}</g>')
 
     # ---- top rail
     p.append(cell(PAD, 27, 9, C["accent"]))
     p.append(text(PAD + 22, 35, 11, C["fg"], "SOCRATE", weight="600", track=".24em"))
-    p.append(text(W - PAD, 35, 10, C["fg4"], "FRANCE", anchor="end", track=".24em"))
+    p.append(text(W - PAD, 35, 10, C["fg4"], "7+ YEARS LIVE · 50K+ PLAYERS",
+                  anchor="end", track=".22em"))
     p.append(rect(PAD, 56, INNER, 1, C["rule"]))
 
     # ---- hero
-    p.append(text(PAD, 122, 10, C["accent"], "SOLO DEVELOPER", weight="600", track=".3em"))
+    p.append(text(PAD, 122, 10, C["accent"], "ONE-MAN STUDIO", weight="600", track=".3em"))
     mark, mw = wordmark("SOCRATE", PAD, 146)
     p.extend(mark)
     p.append(cell(PAD + mw + 20, 146 + GH - 11, 11, C["accent"], 'class="brt"'))
@@ -343,7 +352,7 @@ def render(data, views=None, placeholder=False):
     px0 = PAD + 26
     pw = INNER - 52
     p.append(text(px0, py0 + 34, 10, C["fg4"],
-                  "ALL TIME" if placeholder else f"SINCE {since}", weight="600", track=".22em"))
+                  "ALL TIME" if placeholder else f"ON GITHUB SINCE {since}", weight="600", track=".22em"))
     if placeholder:
         meta = '<tspan fill="#5c6a80">AWAITING FIRST SYNC</tspan>'
     else:
@@ -394,7 +403,7 @@ def render(data, views=None, placeholder=False):
         if i:
             p.append(rect(x - 16, 548, 1, 62, C["rule_soft"]))
         p.append(text(x, 568, 10, C["accent"], n_, weight="700", track=".2em"))
-        p.append(text(x + 30, 568, 11.5, C["fg"], name, weight="600", track=".14em"))
+        p.append(text(x + 30, 568, 11, C["fg"], name, weight="600", track=".1em"))
         p.append(text(x, 592, 11, C["fg4"], desc))
 
     # ---- footer
