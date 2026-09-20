@@ -51,7 +51,7 @@
 <text x="78" y="35" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="600" fill="#f4f7fb" text-anchor="start" letter-spacing=".24em" >SOCRATE</text>
 <text x="824" y="35" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="10" font-weight="500" fill="#5c6a80" text-anchor="end" letter-spacing=".22em" >7+ YEARS LIVE · 50K+ PLAYERS</text>
 <rect x="56" y="56" width="768" height="1" fill="#1a2334" />
-<text x="56" y="122" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="10" font-weight="600" fill="#f2c14e" text-anchor="start" letter-spacing=".3em" >I SHIP INFRASTRUCTURE</text>
+<text x="56" y="122" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="10" font-weight="600" fill="#f2c14e" text-anchor="start" letter-spacing=".3em" >FOUNDER, WALYVERSE</text>
 <polyline points="95.5,150.5 60.5,150.5 60.5,177 95.5,177 95.5,203.5 60.5,203.5" fill="none" stroke="#f4f7fb" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
 <polyline points="122.5,150.5 157.5,150.5 157.5,203.5 122.5,203.5 122.5,150.5" fill="none" stroke="#f4f7fb" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
 <polyline points="219.5,150.5 184.5,150.5 184.5,203.5 219.5,203.5" fill="none" stroke="#f4f7fb" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
@@ -455,21 +455,21 @@
 <rect x="704" y="490.57" width="9" height="9" fill="#161e2c" rx="2.65" />
 <text x="695" y="498.57" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="9" font-weight="500" fill="#5c6a80" text-anchor="end" letter-spacing=".16em" >LESS</text>
 <text x="82" y="498.57" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="9" font-weight="500" fill="#5c6a80" text-anchor="start" letter-spacing=".16em" >THE LAST YEAR, DAY BY DAY</text>
-<text x="56" y="568" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="10" font-weight="700" fill="#f2c14e" text-anchor="start" letter-spacing=".2em" >01</text>
-<text x="86" y="568" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="600" fill="#f4f7fb" text-anchor="start" letter-spacing=".1em" >CONTROL PLANE</text>
-<text x="56" y="592" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="500" fill="#5c6a80" text-anchor="start" >fleet scheduling, deploys</text>
-<rect x="232" y="548" width="1" height="62" fill="#141c2a" />
-<text x="248" y="568" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="10" font-weight="700" fill="#f2c14e" text-anchor="start" letter-spacing=".2em" >02</text>
-<text x="278" y="568" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="600" fill="#f4f7fb" text-anchor="start" letter-spacing=".1em" >IDENTITY &amp; STATE</text>
-<text x="248" y="592" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="500" fill="#5c6a80" text-anchor="start" >one record, fleet wide</text>
-<rect x="424" y="548" width="1" height="62" fill="#141c2a" />
-<text x="440" y="568" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="10" font-weight="700" fill="#f2c14e" text-anchor="start" letter-spacing=".2em" >03</text>
-<text x="470" y="568" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="600" fill="#f4f7fb" text-anchor="start" letter-spacing=".1em" >TRANSACTIONAL CORE</text>
-<text x="440" y="592" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="500" fill="#5c6a80" text-anchor="start" >ledger, market, payments</text>
-<rect x="616" y="548" width="1" height="62" fill="#141c2a" />
-<text x="632" y="568" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="10" font-weight="700" fill="#f2c14e" text-anchor="start" letter-spacing=".2em" >04</text>
-<text x="662" y="568" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="600" fill="#f4f7fb" text-anchor="start" letter-spacing=".1em" >RUNTIME</text>
-<text x="632" y="592" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="500" fill="#5c6a80" text-anchor="start" >menus, locale, chat</text>
+<text x="82" y="556" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="10" font-weight="700" fill="#f2c14e" text-anchor="start" letter-spacing=".22em" >01</text>
+<text x="82" y="578" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="11.5" font-weight="600" fill="#f4f7fb" text-anchor="start" letter-spacing=".12em" >CONTROL PLANE</text>
+<text x="82" y="600" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="500" fill="#5c6a80" text-anchor="start" >fleet scheduling, deploys</text>
+<rect x="243" y="536" width="1" height="74" fill="#141c2a" />
+<text x="261" y="556" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="10" font-weight="700" fill="#f2c14e" text-anchor="start" letter-spacing=".22em" >02</text>
+<text x="261" y="578" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="11.5" font-weight="600" fill="#f4f7fb" text-anchor="start" letter-spacing=".12em" >IDENTITY &amp; STATE</text>
+<text x="261" y="600" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="500" fill="#5c6a80" text-anchor="start" >one record, fleet wide</text>
+<rect x="422" y="536" width="1" height="74" fill="#141c2a" />
+<text x="440" y="556" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="10" font-weight="700" fill="#f2c14e" text-anchor="start" letter-spacing=".22em" >03</text>
+<text x="440" y="578" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="11.5" font-weight="600" fill="#f4f7fb" text-anchor="start" letter-spacing=".12em" >TRANSACTIONAL CORE</text>
+<text x="440" y="600" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="500" fill="#5c6a80" text-anchor="start" >ledger, market, payments</text>
+<rect x="601" y="536" width="1" height="74" fill="#141c2a" />
+<text x="619" y="556" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="10" font-weight="700" fill="#f2c14e" text-anchor="start" letter-spacing=".22em" >04</text>
+<text x="619" y="578" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="11.5" font-weight="600" fill="#f4f7fb" text-anchor="start" letter-spacing=".12em" >RUNTIME</text>
+<text x="619" y="600" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="500" fill="#5c6a80" text-anchor="start" >menus, locale, chat</text>
 <rect x="56" y="626" width="768" height="1" fill="#1a2334" />
 <text x="56" y="654" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="12" font-weight="600" fill="#f2c14e" text-anchor="start" letter-spacing=".2em" >WALYVERSE.COM</text>
 <g transform="translate(634.7,643) scale(0.58)" fill="#f2c14e" opacity=".9"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></g>

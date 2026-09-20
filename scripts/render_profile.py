@@ -337,7 +337,7 @@ def render(data, views=None, placeholder=False):
     p.append(rect(PAD, 56, INNER, 1, C["rule"]))
 
     # ---- hero
-    p.append(text(PAD, 122, 10, C["accent"], "I SHIP INFRASTRUCTURE", weight="600", track=".3em"))
+    p.append(text(PAD, 122, 10, C["accent"], "FOUNDER, WALYVERSE", weight="600", track=".3em"))
     mark, mw = wordmark("SOCRATE", PAD, 146)
     p.extend(mark)
     p.append(cell(PAD + mw + 20, 146 + GH - 11, 11, C["accent"], 'class="brt"'))
@@ -396,15 +396,15 @@ def render(data, views=None, placeholder=False):
     p.append(text(lx - 42 - 4 * 13 - 9, leg_y, 9, C["fg4"], "LESS", anchor="end", track=".16em"))
     p.append(text(px0, leg_y, 9, C["fg4"], "THE LAST YEAR, DAY BY DAY", track=".16em"))
 
-    # ---- numbered sections
-    col = INNER / 4
+    # ---- numbered sections, on the same column span as the calendar above
+    col = pw / 4
     for i, (n_, name, desc) in enumerate(SECTIONS):
-        x = PAD + i * col
+        x = px0 + i * col
         if i:
-            p.append(rect(x - 16, 548, 1, 62, C["rule_soft"]))
-        p.append(text(x, 568, 10, C["accent"], n_, weight="700", track=".2em"))
-        p.append(text(x + 30, 568, 11, C["fg"], name, weight="600", track=".1em"))
-        p.append(text(x, 592, 11, C["fg4"], desc))
+            p.append(rect(x - 18, 536, 1, 74, C["rule_soft"]))
+        p.append(text(x, 556, 10, C["accent"], n_, weight="700", track=".22em"))
+        p.append(text(x, 578, 11.5, C["fg"], name, weight="600", track=".12em"))
+        p.append(text(x, 600, 11, C["fg4"], desc))
 
     # ---- footer
     p.append(rect(PAD, 626, INNER, 1, C["rule"]))
