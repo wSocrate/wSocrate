@@ -65,7 +65,7 @@
 <text x="56" y="254" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="19" font-weight="500" fill="#c9d5e4" text-anchor="start" >Building worlds, systems &amp; communities.</text>
 <rect x="56" y="282" width="56" height="2" fill="#f2c14e" />
 <rect x="56" y="318" width="708" height="198" fill="#0b111d" rx="12" stroke="#1a2334" stroke-width="1"/>
-<text x="82" y="354" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="10" font-weight="500" fill="#97a6bc" text-anchor="start" letter-spacing=".14em" ><tspan font-size="17" font-weight="700" fill="#f2c14e" letter-spacing="0">2,437</tspan><tspan fill="#97a6bc"> CONTRIBUTIONS</tspan><tspan fill="#1a2334">   /   </tspan><tspan font-size="17" font-weight="700" fill="#f2c14e" letter-spacing="0">12</tspan><tspan fill="#97a6bc"> DAY STREAK</tspan><tspan fill="#1a2334">   /   </tspan><tspan font-size="17" font-weight="700" fill="#f2c14e" letter-spacing="0">12</tspan><tspan fill="#97a6bc"> DAY RECORD</tspan></text>
+<text x="82" y="354" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="10" font-weight="500" fill="#97a6bc" text-anchor="start" letter-spacing=".14em" ><tspan font-size="17" font-weight="700" fill="#f2c14e" letter-spacing="0">2,529</tspan><tspan fill="#97a6bc"> CONTRIBUTIONS</tspan><tspan fill="#1a2334">   /   </tspan><tspan font-size="17" font-weight="700" fill="#f2c14e" letter-spacing="0">13</tspan><tspan fill="#97a6bc"> DAY STREAK</tspan><tspan fill="#1a2334">   /   </tspan><tspan font-size="17" font-weight="700" fill="#f2c14e" letter-spacing="0">13</tspan><tspan fill="#97a6bc"> DAY RECORD</tspan></text>
 <rect x="82" y="382" width="9.18" height="9.18" fill="#161e2c" rx="2.7" />
 <rect x="82" y="394.38" width="9.18" height="9.18" fill="#161e2c" rx="2.7" />
 <rect x="82" y="406.75" width="9.18" height="9.18" fill="#161e2c" rx="2.7" />
@@ -300,7 +300,7 @@
 <rect x="490.45" y="382" width="9.18" height="9.18" fill="#bb8d2c" rx="2.7" />
 <rect x="490.45" y="394.38" width="9.18" height="9.18" fill="#bb8d2c" rx="2.7" />
 <rect x="490.45" y="406.75" width="9.18" height="9.18" fill="#7d5c1f" rx="2.7" />
-<rect x="490.45" y="419.13" width="9.18" height="9.18" fill="#7d5c1f" rx="2.7" />
+<rect x="490.45" y="419.13" width="9.18" height="9.18" fill="#3d3018" rx="2.7" />
 <rect x="490.45" y="431.51" width="9.18" height="9.18" fill="#7d5c1f" rx="2.7" />
 <rect x="490.45" y="443.89" width="9.18" height="9.18" fill="#3d3018" rx="2.7" />
 <rect x="490.45" y="456.26" width="9.18" height="9.18" fill="#161e2c" rx="2.7" />
@@ -309,7 +309,7 @@
 <rect x="502.83" y="406.75" width="9.18" height="9.18" fill="#7d5c1f" rx="2.7" />
 <rect x="502.83" y="419.13" width="9.18" height="9.18" fill="#7d5c1f" rx="2.7" />
 <rect x="502.83" y="431.51" width="9.18" height="9.18" fill="#7d5c1f" rx="2.7" />
-<rect x="502.83" y="443.89" width="9.18" height="9.18" fill="#bb8d2c" rx="2.7" />
+<rect x="502.83" y="443.89" width="9.18" height="9.18" fill="#7d5c1f" rx="2.7" />
 <rect x="502.83" y="456.26" width="9.18" height="9.18" fill="#bb8d2c" rx="2.7" />
 <rect x="515.21" y="382" width="9.18" height="9.18" fill="#bb8d2c" rx="2.7" />
 <rect x="515.21" y="394.38" width="9.18" height="9.18" fill="#161e2c" rx="2.7" />
@@ -381,7 +381,7 @@
 <rect x="626.6" y="431.51" width="9.18" height="9.18" fill="#161e2c" rx="2.7" />
 <rect x="626.6" y="443.89" width="9.18" height="9.18" fill="#161e2c" rx="2.7" />
 <rect x="626.6" y="456.26" width="9.18" height="9.18" fill="#3d3018" rx="2.7" />
-<rect x="638.98" y="382" width="9.18" height="9.18" fill="#7d5c1f" rx="2.7" />
+<rect x="638.98" y="382" width="9.18" height="9.18" fill="#3d3018" rx="2.7" />
 <rect x="638.98" y="394.38" width="9.18" height="9.18" fill="#7d5c1f" rx="2.7" />
 <rect x="638.98" y="406.75" width="9.18" height="9.18" fill="#161e2c" rx="2.7" />
 <rect x="638.98" y="419.13" width="9.18" height="9.18" fill="#161e2c" rx="2.7" />
@@ -420,7 +420,7 @@
 <rect x="700.87" y="394.38" width="9.18" height="9.18" fill="#161e2c" rx="2.7" />
 <rect x="700.87" y="406.75" width="9.18" height="9.18" fill="#bb8d2c" rx="2.7" />
 <rect x="700.87" y="419.13" width="9.18" height="9.18" fill="#bb8d2c" rx="2.7" />
-<rect x="700.87" y="431.51" width="9.18" height="9.18" fill="#f2c14e" rx="2.7" />
+<rect x="700.87" y="431.51" width="9.18" height="9.18" fill="#bb8d2c" rx="2.7" />
 <rect x="700.87" y="443.89" width="9.18" height="9.18" fill="#7d5c1f" rx="2.7" />
 <rect x="700.87" y="456.26" width="9.18" height="9.18" fill="#161e2c" rx="2.7" />
 <rect x="713.25" y="382" width="9.18" height="9.18" fill="#f2c14e" rx="2.7" />
@@ -434,8 +434,9 @@
 <rect x="725.62" y="394.38" width="9.18" height="9.18" fill="#3d3018" rx="2.7" />
 <rect x="725.62" y="406.75" width="9.18" height="9.18" fill="#f2c14e" rx="2.7" />
 <rect x="725.62" y="419.13" width="9.18" height="9.18" fill="#f2c14e" rx="2.7" />
-<rect x="725.62" y="431.51" width="9.18" height="9.18" fill="#3d3018" rx="2.7" />
-<rect x="725.62" y="431.51" width="9.18" height="9.18" fill="none" rx="2.7" stroke="#f2c14e" stroke-width="1.6" class="tdy"/>
+<rect x="725.62" y="431.51" width="9.18" height="9.18" fill="#f2c14e" rx="2.7" />
+<rect x="725.62" y="443.89" width="9.18" height="9.18" fill="#7d5c1f" rx="2.7" />
+<rect x="725.62" y="443.89" width="9.18" height="9.18" fill="none" rx="2.7" stroke="#f2c14e" stroke-width="1.6" class="tdy"/>
 <text x="131.51" y="372" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="9" font-weight="500" fill="#5c6a80" text-anchor="start" letter-spacing=".16em" >OCT</text>
 <text x="181.02" y="372" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="9" font-weight="500" fill="#5c6a80" text-anchor="start" letter-spacing=".16em" >NOV</text>
 <text x="230.53" y="372" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="9" font-weight="500" fill="#5c6a80" text-anchor="start" letter-spacing=".16em" >DEC</text>
