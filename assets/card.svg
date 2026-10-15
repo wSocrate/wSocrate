@@ -434,7 +434,8 @@
 <rect x="725.62" y="394.38" width="9.18" height="9.18" fill="#f2c14e" rx="2.7" />
 <rect x="725.62" y="406.75" width="9.18" height="9.18" fill="#f2c14e" rx="2.7" />
 <rect x="725.62" y="419.13" width="9.18" height="9.18" fill="#bb8d2c" rx="2.7" />
-<rect x="725.62" y="419.13" width="9.18" height="9.18" fill="none" rx="2.7" stroke="#f2c14e" stroke-width="1.6" class="tdy"/>
+<rect x="725.62" y="431.51" width="9.18" height="9.18" fill="#161e2c" rx="2.7" />
+<rect x="725.62" y="431.51" width="9.18" height="9.18" fill="none" rx="2.7" stroke="#f2c14e" stroke-width="1.6" class="tdy"/>
 <text x="131.51" y="372" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="9" font-weight="500" fill="#5c6a80" text-anchor="start" letter-spacing=".16em" >NOV</text>
 <text x="181.02" y="372" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="9" font-weight="500" fill="#5c6a80" text-anchor="start" letter-spacing=".16em" >DEC</text>
 <text x="230.53" y="372" font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" font-size="9" font-weight="500" fill="#5c6a80" text-anchor="start" letter-spacing=".16em" >JAN</text>
